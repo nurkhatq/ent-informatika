@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Test } from '@/app/services/api';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../common/Card';
 import { Button } from '../common/Button';
+import { useTranslation } from 'react-i18next';
 
 interface TestCardProps {
   test: Test;
@@ -102,6 +103,7 @@ const LockedBadge = styled.span`
 `;
 
 export const TestCard: React.FC<TestCardProps> = ({ test, isUnlocked }) => {
+  const { t } = useTranslation();
   if (!isUnlocked) {
     return (
       <motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
@@ -109,14 +111,14 @@ export const TestCard: React.FC<TestCardProps> = ({ test, isUnlocked }) => {
           <TestCardHeaderStyled>
             <CardTitle>{test.title}</CardTitle>
             <CardDescription>
-              {test.question_count} сұрақ
+              {test.question_count} {t('test_card.questions')}
             </CardDescription>
           </TestCardHeaderStyled>
           <CardContent>
             <TestDescription>
-              <LockedBadge>🔒 Бұғатталған</LockedBadge>
+              <LockedBadge>{t('test_card.locked')}</LockedBadge>
               <p>
-                Тестке қол жеткізу үшін алдыңғы тестті жақсы аяқтау керек.
+                {t('test_card.locked_description')}
               </p>
             </TestDescription>
           </CardContent>
@@ -143,12 +145,12 @@ export const TestCard: React.FC<TestCardProps> = ({ test, isUnlocked }) => {
             )}
           </BadgesContainer>
           <TestDescription>
-            Бұл тест арқылы сіз біліміңізді тексере аласыз. Тестті бастау үшін төмендегі түймені басыңыз.
+            {t('test_card.description')}
           </TestDescription>
         </TestCardContent>
         <TestCardFooter>
           <Button as={Link} href={`/tests/${test.id}`} fullWidth>
-            Тестті бастау
+            {t('test_card.start_test')}
           </Button>
         </TestCardFooter>
       </TestCardContainer>

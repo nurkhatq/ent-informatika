@@ -10,6 +10,7 @@ import { Container } from '../../app/components/common/Container';
 import { SectionCard } from '../../app/components/materials/SectionCard';
 import { Spinner } from '../../app/components/common/Spinner';
 import { Section, learningMaterialsApi } from '../../app/services/api';
+import { useTranslation } from 'react-i18next';
 
 const PageTitle = styled.h1`
   font-size: 2.5rem;
@@ -59,6 +60,7 @@ export default function MaterialsPage() {
   const [error, setError] = useState<string | null>(null);
   const { isNameSet, isLoading } = useUser();
   const router = useRouter();
+  const { t } = useTranslation();
   
   useEffect(() => {
     if (!isLoading && !isNameSet) {
@@ -102,10 +104,9 @@ export default function MaterialsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <PageTitle>Оқу материалдары</PageTitle>
+        <PageTitle>{t('materials.title')}</PageTitle>
         <PageDescription>
-        Информатика бойынша теориялық материалдар ҰБТ бағдарламасының негізгі бөлімдері бойынша құрылымдалған.
-        Оқу материалдарына қол жеткізу үшін сізді қызықтыратын бөлімді таңдаңыз.
+          {t('materials.description')}
         </PageDescription>
         
         {error && <ErrorMessage>{error}</ErrorMessage>}

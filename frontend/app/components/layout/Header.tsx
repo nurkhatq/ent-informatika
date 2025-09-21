@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useUser } from '@/app/context/UserContext';
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from '../common/LanguageSwitcher';
 
 const HeaderContainer = styled.header`
   background-color: white;
@@ -117,19 +119,20 @@ const LogoutButton = styled.button`
   }
 `;
 
-const navItems = [
-  { name: 'Басты', href: '/' },
-  { name: 'Оқу материалдары', href: '/materials' },
-  { name: 'Бейнежазбалар', href: '/videos' },
-  { name: 'Тест сұрақтары', href: '/tests' },
-  { name: 'Контекстік тесттер', href: '/context-tests' },
-  { name: 'Рейтинг', href: '/leaderboard' },
+const getNavItems = (t: (key: string) => string) => [
+  { name: t('navigation.home'), href: '/' },
+  { name: t('navigation.materials'), href: '/materials' },
+  { name: t('navigation.videos'), href: '/videos' },
+  { name: t('navigation.tests'), href: '/tests' },
+  { name: t('navigation.context_tests'), href: '/context-tests' },
+  { name: t('navigation.leaderboard'), href: '/leaderboard' },
 ];
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const { studentName, clearStudentName } = useUser();
+  const { t } = useTranslation();
   
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -143,7 +146,7 @@ export const Header = () => {
         </Logo>
         
         <Nav>
-          {navItems.map((item) => (
+          {getNavItems(t).map((item) => (
             <NavLink 
               key={item.href} 
               href={item.href}
@@ -153,10 +156,12 @@ export const Header = () => {
             </NavLink>
           ))}
           
+          <LanguageSwitcher />
+          
           {studentName && (
             <UserInfo>
-              <UserName>Сәлем, {studentName}!</UserName>
-              <LogoutButton onClick={clearStudentName}>Шығу</LogoutButton>
+              <UserName>{t('hello')}, {studentName}!</UserName>
+              <LogoutButton onClick={clearStudentName}>{t('logout')}</LogoutButton>
             </UserInfo>
           )}
         </Nav>
@@ -166,7 +171,7 @@ export const Header = () => {
         </MobileMenuButton>
         
         <MobileNav $isOpen={isMenuOpen}>
-          {navItems.map((item) => (
+          {getNavItems(t).map((item) => (
             <NavLink 
               key={item.href} 
               href={item.href}
@@ -177,14 +182,16 @@ export const Header = () => {
             </NavLink>
           ))}
           
+          <LanguageSwitcher />
+          
           {studentName && (
             <UserInfo>
-              <UserName>Сәлем, {studentName}!</UserName>
+              <UserName>{t('hello')}, {studentName}!</UserName>
               <LogoutButton onClick={() => {
                 clearStudentName();
                 setIsMenuOpen(false);
               }}>
-                Шығу
+                {t('logout')}
               </LogoutButton>
             </UserInfo>
           )}

@@ -10,6 +10,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Input, InputLabel, InputError } from '../components/common/Input';
 import { Button } from '../components/common/Button';
 import { Spinner } from '../components/common/Spinner';
+import { useTranslation } from 'react-i18next';
 
 // Улучшенный фон с анимированным градиентом
 const PageContainer = styled.div`
@@ -190,6 +191,7 @@ export default function RegisterNamePage() {
   const { setStudentName } = useUser();
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
+  const { t } = useTranslation();
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -197,7 +199,7 @@ export default function RegisterNamePage() {
     
     // Валидация
     if (!name.trim()) {
-      setError('Өтінеміз, атыңызды енгізіңіз');
+      setError(t('name_required'));
       return;
     }
     
@@ -235,9 +237,9 @@ export default function RegisterNamePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <StyledCardTitle>Қош келдіңіз!</StyledCardTitle>
+              <StyledCardTitle>{t('welcome')}</StyledCardTitle>
               <StyledCardDescription>
-                ҰБТ тренажерімен жұмыс жасауды бастау үшін өзіңізді таныстырыңыз
+                {t('welcome_subtitle')}
               </StyledCardDescription>
             </motion.div>
           </RegisterCardHeader>
@@ -250,11 +252,11 @@ export default function RegisterNamePage() {
             <StyledCardContent>
               <RegisterForm onSubmit={handleSubmit}>
                 <FormField>
-                  <StyledInputLabel htmlFor="name">Аты-жөніңіз кім?</StyledInputLabel>
+                  <StyledInputLabel htmlFor="name">{t('name_question')}</StyledInputLabel>
                   <StyledInput
                     id="name"
                     type="text"
-                    placeholder="Атыңызды енгізіңіз"
+                    placeholder={t('name_placeholder')}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     $error={!!error}
@@ -276,10 +278,10 @@ export default function RegisterNamePage() {
                 {submitting ? (
                   <>
                     <StyledSpinner size="20px" color="white" />
-                    Жүктелуде...
+                    {t('loading')}
                   </>
                 ) : (
-                  'Бастау'
+                  t('start')
                 )}
               </StyledButton>
             </StyledCardFooter>

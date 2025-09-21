@@ -12,6 +12,7 @@ import { Card, CardHeader, CardTitle, CardContent } from './components/common/Ca
 import { Button } from './components/common/Button';
 import { Spinner } from './components/common/Spinner';
 import { AboutSection } from './components/layout/AboutSection';
+import { useTranslation } from 'react-i18next';
 
 // Улучшенный Hero раздел с анимированным фоном
 const HeroSection = styled.section`
@@ -291,6 +292,7 @@ const LoadingText = styled(motion.p)`
 export default function Home() {
   const { isNameSet, studentName, isLoading } = useUser();
   const router = useRouter();
+  const { t } = useTranslation();
   
   // Если имя не указано, перенаправляем на страницу ввода имени
   useEffect(() => {
@@ -314,7 +316,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            Жүктелуде...
+            {t('loading')}
           </LoadingText>
         </SpinnerContainer>
       </LoadingContainer>
@@ -331,13 +333,13 @@ export default function Home() {
         >
           <HeroContainer>
             <HeroTitle>
-              Информатика пәні бойынша ҰБТ-ға даярлауға арналған әдістемелік жүйеге қош келдіңіз!
+              {t('hero.title')}
             </HeroTitle>
             <HeroSubtitle>
-              Сәлем, {studentName}! Мұнда сіз Ұлттық Бірыңғай Тестілеуге дайындалуға қажетті барлық материалдар мен тесттерді таба аласыз.
+              {t('hero.subtitle', { name: studentName })}
             </HeroSubtitle>
             <HeroButton size="large" as={Link} href="/tests">
-              Тестті бастау
+              {t('hero.start_test')}
             </HeroButton>
           </HeroContainer>
         </motion.div>
@@ -345,7 +347,7 @@ export default function Home() {
       
       <Container>
         <FeaturesSection>
-          <SectionTitle>Біздің мүмкіндіктер</SectionTitle>
+          <SectionTitle>{t('features.title')}</SectionTitle>
           
           <FeaturesGrid>
             <motion.div
@@ -357,14 +359,14 @@ export default function Home() {
               <FeatureCard>
                 <FeatureCardHeader>
                   <FeatureIcon>📚</FeatureIcon>
-                  <FeatureTitle>Оқу материалдары</FeatureTitle>
+                  <FeatureTitle>{t('features.materials.title')}</FeatureTitle>
                 </FeatureCardHeader>
                 <FeatureCardContent>
                   <FeatureCardDescription>
-                    Информатика пәнінің тақырыптары бойынша бөлімдерге бөлінген толық оқу материалдарына қолжетімділік.
+                    {t('features.materials.description')}
                   </FeatureCardDescription>
                   <Link href="/materials" passHref>
-                    <Button fullWidth>Материалдарды оқу</Button>
+                    <Button fullWidth>{t('features.materials.button')}</Button>
                   </Link>
                 </FeatureCardContent>
               </FeatureCard>
@@ -379,14 +381,14 @@ export default function Home() {
               <FeatureCard>
                 <FeatureCardHeader>
                   <FeatureIcon>✅</FeatureIcon>
-                  <FeatureTitle>Тест тапсырмалары</FeatureTitle>
+                  <FeatureTitle>{t('features.tests.title')}</FeatureTitle>
                 </FeatureCardHeader>
                 <FeatureCardContent>
                   <FeatureCardDescription>
-                    300-ден астам сұрақ, тақырыптар бойынша бөлінген, білімді тексеру және прогресті бақылау мүмкіндігімен.
+                    {t('features.tests.description')}
                   </FeatureCardDescription>
                   <Link href="/tests" passHref>
-                    <Button fullWidth>Тест тапсыру</Button>
+                    <Button fullWidth>{t('features.tests.button')}</Button>
                   </Link>
                 </FeatureCardContent>
               </FeatureCard>
@@ -401,14 +403,14 @@ export default function Home() {
               <FeatureCard>
                 <FeatureCardHeader>
                   <FeatureIcon>🧩</FeatureIcon>
-                  <FeatureTitle>Контекстік тесттер</FeatureTitle>
+                  <FeatureTitle>{t('features.context_tests.title')}</FeatureTitle>
                 </FeatureCardHeader>
                 <FeatureCardContent>
                   <FeatureCardDescription>
-                    Ақпаратты талдау және мәтінмен жұмыс істеу дағдыларын дамытатын контекстік тесттер.
+                    {t('features.context_tests.description')}
                   </FeatureCardDescription>
                   <Link href="/context-tests" passHref>
-                    <Button fullWidth>Контекстік тесттер</Button>
+                    <Button fullWidth>{t('features.context_tests.button')}</Button>
                   </Link>
                 </FeatureCardContent>
               </FeatureCard>
@@ -425,16 +427,16 @@ export default function Home() {
           <CTASection>
             <Container>
               <CTAContent>
-                <CTATitle>Дайындықты бастауға дайынсыз ба?</CTATitle>
+                <CTATitle>{t('cta.title')}</CTATitle>
                 <CTADescription>
-                  Қажетті бөлімді таңдаңыз және оқуды бастаңыз. Жүйе сіздің нәтижелеріңізді сақтап, дайындық барысын бақылауға көмектеседі.
+                  {t('cta.description')}
                 </CTADescription>
                 <ButtonGroup>
                   <StyledButton $variant="secondary" as={Link} href="/materials">
-                    Теорияны оқу
+                    {t('cta.read_theory')}
                   </StyledButton>
                   <StyledButton as={Link} href="/tests">
-                    Тест тапсыру
+                    {t('cta.take_test')}
                   </StyledButton>
                 </ButtonGroup>
               </CTAContent>

@@ -14,6 +14,7 @@ import { Spinner } from '../../components/common/Spinner';
 import { testApi, Question, Context, StudentAnswerWithContext } from '../../services/api';
 import { useNavigationBlocker } from '../../hooks/useNavigationBlocker';
 import { QuestionNavigator } from '../../components/tests/QuestionNavigator';
+import { useTranslation } from 'react-i18next';
 
 const TestContainer = styled(Container)`
   padding: 2rem 1rem;
@@ -113,8 +114,9 @@ export default function RandomTestPage() {
   const router = useRouter();
   const { isNameSet, studentName, completeTest, isLoading } = useUser();
   const [shouldRestart, setShouldRestart] = useState(false);
+  const { t } = useTranslation();
   
-  const [testTitle, setTestTitle] = useState('Байқау тесті');
+  const [testTitle, setTestTitle] = useState(t('test.random_test'));
   const [testDescription, setTestDescription] = useState('');
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);

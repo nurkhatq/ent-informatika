@@ -151,6 +151,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../common/Card';
 import { Button } from '../common/Button';
+import { useTranslation } from 'react-i18next';
 
 interface TestResultCardProps {
   studentName: string;
@@ -249,15 +250,17 @@ export const TestResultCard: React.FC<TestResultCardProps> = ({
   onRestartClick,
   maxScore = totalQuestions, // Default maxScore to totalQuestions
 }) => {
+  const { t } = useTranslation();
+  
   const getResultMessage = () => {
     if (percentage < 50) {
-      return "Материалды қайта қарап, қайтадан байқап көруді ұсынамыз.";
+      return t('test_result.message_low');
     } else if (percentage < 70) {
-      return "Жаман емес, бірақ әлі де жұмыстану қажет.";
+      return t('test_result.message_medium');
     } else if (percentage < 90) {
-      return "Жақсы нәтиже! Сіз жақсы дайындалғансыз.";
+      return t('test_result.message_good');
     } else {
-      return "Тамаша нәтиже! Сіз материалды керемет меңгергенсіз.";
+      return t('test_result.message_excellent');
     }
   };
 
@@ -273,20 +276,20 @@ export const TestResultCard: React.FC<TestResultCardProps> = ({
     >
       <ResultCardContainer>
         <CardHeader>
-          <ResultCardTitle>Тест нәтижесі</ResultCardTitle>
+          <ResultCardTitle>{t('test_result.title')}</ResultCardTitle>
           <ResultCardDescription>{testTitle}</ResultCardDescription>
         </CardHeader>
         
         <CardContent>
           <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-            <p>Оқушы: <strong>{studentName}</strong></p>
+            <p>{t('test_result.student')}: <strong>{studentName}</strong></p>
           </div>
           
           <ResultBox percentage={percentage}>
             <ResultPercentage>{percentage.toFixed(1)}%</ResultPercentage>
             <ResultDetails>
-              {score} из {maxScore} баллов
-              {maxScore !== totalQuestions && ` (${totalQuestions} сұрақ)`}
+              {score} {t('test_result.points')} {maxScore}
+              {maxScore !== totalQuestions && ` (${totalQuestions} ${t('test_result.questions')})`}
             </ResultDetails>
             <ResultMessage>{getResultMessage()}</ResultMessage>
           </ResultBox>
@@ -294,11 +297,11 @@ export const TestResultCard: React.FC<TestResultCardProps> = ({
           {/* Scoring system explanation for random test */}
           {isRandomTest && (
             <ScoringSystem>
-              <ScoringTitle>Бағалау жүйесі:</ScoringTitle>
+              <ScoringTitle>{t('test_result.scoring_system')}</ScoringTitle>
               <ScoringList>
-                <ScoringItem>• Сұрақтар 1-25 (бір дұрыс жауаппен) - 1 балға дейін</ScoringItem>
-                <ScoringItem>• Сұрақтар 26-30 (контекстік) - 1 балға дейін</ScoringItem>
-                <ScoringItem>• Сұрақтар 31-40 (көп таңдаумен) - 2 балға дейін</ScoringItem>
+                <ScoringItem>{t('test_result.scoring_1')}</ScoringItem>
+                <ScoringItem>{t('test_result.scoring_2')}</ScoringItem>
+                <ScoringItem>{t('test_result.scoring_3')}</ScoringItem>
               </ScoringList>
             </ScoringSystem>
           )}
@@ -311,7 +314,7 @@ export const TestResultCard: React.FC<TestResultCardProps> = ({
               as={Link}
               href={isRandomTest ? "/tests/random/leaderboard" : `/tests/${testId}/leaderboard`}
             >
-              Рейтинг
+              {t('features.leaderboard.title')}
             </Button>
             
             <Button 
@@ -319,19 +322,19 @@ export const TestResultCard: React.FC<TestResultCardProps> = ({
               as={Link}
               href="/tests"
             >
-              Тест тізіміне қайту
+              {t('test_result.back_to_tests')}
             </Button>
             
             {onRestartClick ? (
               <Button onClick={onRestartClick}>
-                Қайтадан бастау
+                {t('test_result.restart')}
               </Button>
             ) : (
               <Button 
                 as={Link}
                 href={isRandomTest ? `/tests/random` : `/tests/${testId}`}
               >
-                Қайтадан бастау
+                {t('test_result.restart')}
               </Button>
             )}
           </ButtonsContainer>

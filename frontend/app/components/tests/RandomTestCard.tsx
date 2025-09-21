@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../common/Card';
 import { Button } from '../common/Button';
+import { useTranslation } from 'react-i18next';
 
 const RandomTestCardContainer = styled(Card)`
   border: 2px solid var(--primary-color);
@@ -77,6 +78,8 @@ const FeatureText = styled.div`
 `;
 
 export const RandomTestCard: React.FC = () => {
+  const { t } = useTranslation();
+  
   return (
     <motion.div
       whileHover={{ y: -8 }}
@@ -84,10 +87,10 @@ export const RandomTestCard: React.FC = () => {
     >
       <RandomTestCardContainer>
         <RandomTestHeader>
-          <RandomTestBadge>Сынап көріңіз</RandomTestBadge>
-          <RandomTestTitle>БАЙҚАУ ТЕСТІ</RandomTestTitle>
+          <RandomTestBadge>{t('random_test.try_it')}</RandomTestBadge>
+          <RandomTestTitle>{t('random_test.title')}</RandomTestTitle>
           <RandomTestDescription>
-          Барлық бөлімдерден кездейсоқ сұрақтары бар кешенді тест
+            {t('random_test.description')}
           </RandomTestDescription>
         </RandomTestHeader>
         
@@ -95,21 +98,21 @@ export const RandomTestCard: React.FC = () => {
           <Feature>
             <FeatureIcon>✓</FeatureIcon>
             <FeatureText>
-            Барлық бөлімдерден кездейсоқ таңдалған 40 сұрақ
+              {t('random_test.feature1')}
             </FeatureText>
           </Feature>
           
           <Feature>
             <FeatureIcon>✓</FeatureIcon>
             <FeatureText>
-            Информатика пәні бойынша нақты ҰБТ – ға негізделген
+              {t('random_test.feature2')}
             </FeatureText>
           </Feature>
           
           <Feature>
             <FeatureIcon>✓</FeatureIcon>
             <FeatureText>
-            Тиімді дайындалу үшін әр жолы жаңа сұрақтар жиынтығы
+              {t('random_test.feature3')}
             </FeatureText>
           </Feature>
         </RandomTestContent>
@@ -121,7 +124,7 @@ export const RandomTestCard: React.FC = () => {
             fullWidth
             size="large"
           >
-            Байқау тесті бастау
+            {t('random_test.start_button')}
           </Button>
         </CardFooter>
       </RandomTestCardContainer>

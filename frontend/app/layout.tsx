@@ -6,6 +6,7 @@ import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { GlobalStyle } from './styles/GlobalStyle';
 import StyledComponentsRegistry from '../app/lib/registry';
+import { I18nProvider } from './components/providers/I18nProvider';
 
 const roboto = Roboto({
   weight: ['400', '500', '700'],
@@ -26,14 +27,16 @@ export default function RootLayout({
     <html lang="ru">
       <body className={roboto.className}>
         <StyledComponentsRegistry>
-          <UserProvider>
-            <GlobalStyle />
-            <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-              <Header />
-              <main style={{ flex: 1 }}>{children}</main>
-              <Footer />
-            </div>
-          </UserProvider>
+          <I18nProvider>
+            <UserProvider>
+              <GlobalStyle />
+              <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                <Header />
+                <main style={{ flex: 1 }}>{children}</main>
+                <Footer />
+              </div>
+            </UserProvider>
+          </I18nProvider>
         </StyledComponentsRegistry>
       </body>
     </html>

@@ -210,6 +210,7 @@ import { motion } from 'framer-motion';
 import { Section } from '@/app/services/api';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../common/Card';
 import { Button } from '../common/Button';
+import { useTranslation } from 'react-i18next';
 
 interface SectionCardProps {
   section: Section;
@@ -352,13 +353,15 @@ const MaterialIcon = styled.span`
 `;
 
 export const SectionCard: React.FC<SectionCardProps> = ({ section }) => {
+  const { t } = useTranslation();
+  
   // Показываем до 3 материалов в превью карточки
   const previewMaterials = section.materials.slice(0, 3);
   
   // Функция для определения окончания слова "материал" в зависимости от количества
   const getMaterialsText = (count: number) => {
-    if (count === 1) return "материал";
-    return "материал";
+    if (count === 1) return t('materials.material');
+    return t('materials.materials');
   };
   
   return (

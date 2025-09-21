@@ -11,6 +11,7 @@ import { TestCard } from '../components/tests/TestCard';
 import { Spinner } from '../components/common/Spinner';
 import { Test, testApi } from '../services/api';
 import { RandomTestCard } from '../components/tests/RandomTestCard'; // Новый импорт
+import { useTranslation } from 'react-i18next';
 
 const PageTitle = styled.h1`
   font-size: 2.5rem;
@@ -80,6 +81,7 @@ export default function TestsPage() {
     isLoading 
   } = useUser();
   const router = useRouter();
+  const { t } = useTranslation();
   
   useEffect(() => {
     if (!isLoading && !isNameSet) {
@@ -129,9 +131,9 @@ export default function TestsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <PageTitle>Тест тапсырмалары</PageTitle>
+        <PageTitle>{t('test.test_tasks')}</PageTitle>
         <PageDescription>
-          Өзіңізді тексеру үшін тест тапсырмаларын таңдаңыз. Тест аяқталғаннан кейін өз нәтижеңізді басқа оқушылармен салыстыра аласыз.
+          {t('test.test_description')}
         </PageDescription>
         
         {error && <ErrorMessage>{error}</ErrorMessage>}
@@ -144,11 +146,11 @@ export default function TestsPage() {
           <>
             {/* Добавляем секцию с пробным ЕНТ */}
             <FeaturedTestSection>
-              <SectionTitle>Байқау тесті</SectionTitle>
+              <SectionTitle>{t('test.trial_test')}</SectionTitle>
               <RandomTestCard />
             </FeaturedTestSection>
             
-            <SectionTitle>Бөлім бойынша тест тапсырмалары</SectionTitle>
+            <SectionTitle>{t('test.section_tests')}</SectionTitle>
           <TestsGrid>
             {tests.map((test, index) => (
               <motion.div

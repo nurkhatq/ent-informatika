@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Container } from '../common/Container';
+import { useTranslation } from 'react-i18next';
 
 const AboutSectionContainer = styled.section`
   padding: 5rem 0;
@@ -167,6 +168,8 @@ const TestimonialAuthor = styled.cite`
 `;
 
 export const AboutSection: React.FC = () => {
+  const { t } = useTranslation();
+  
   return (
     <AboutSectionContainer>
       <Container>
@@ -178,9 +181,9 @@ export const AboutSection: React.FC = () => {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <AboutTitle>Біз туралы</AboutTitle>
+              <AboutTitle>{t('about.title')}</AboutTitle>
               <AboutSubtitle>
-                Информатика пәнінен ҰБТ-ға даярлауға арналған заманауи платформа
+                {t('about.subtitle')}
               </AboutSubtitle>
             </motion.div>
           </AboutHeader>
@@ -194,11 +197,9 @@ export const AboutSection: React.FC = () => {
             >
               <AboutCard whileHover={{ y: -5 }}>
                 <AboutCardIcon>🎯</AboutCardIcon>
-                <AboutCardTitle>Біздің миссиямыз</AboutCardTitle>
+                <AboutCardTitle>{t('about.mission.title')}</AboutCardTitle>
                 <AboutCardText>
-                  Біздің миссиямыз – оқушыларға информатика пәнінен ҰБТ-ны сәтті тапсыруға көмектесу. 
-                  Біз оқушыларға қолжетімді, тиімді және қызықты оқу тәжірибесін ұсыну арқылы, 
-                  барлық оқушылардың ЖОО-ға түсу мүмкіндіктерін арттыруға тырысамыз.
+                  {t('about.mission.description')}
                 </AboutCardText>
               </AboutCard>
             </motion.div>
@@ -211,11 +212,9 @@ export const AboutSection: React.FC = () => {
             >
               <AboutCard whileHover={{ y: -5 }}>
                 <AboutCardIcon>🔍</AboutCardIcon>
-                <AboutCardTitle>Тесттер және тапсырмалар</AboutCardTitle>
+                <AboutCardTitle>{t('about.tests_and_tasks.title')}</AboutCardTitle>
                 <AboutCardText>
-                  Біздің платформадағы барлық тест тапсырмалары ҰБТ-дағы тест спецификасы негізінде құрастырылған. 
-                  Әр тақырып бойынша бірнеше тесттер бар, сонымен қатар контекстік тесттер мен тапсырмалар да қамтылған, 
-                  бұл оқушыларға толыққанды дайындалуға мүмкіндік береді.
+                  {t('about.tests_and_tasks.description')}
                 </AboutCardText>
               </AboutCard>
             </motion.div>

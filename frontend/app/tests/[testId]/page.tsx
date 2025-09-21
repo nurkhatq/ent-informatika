@@ -13,6 +13,7 @@ import { Spinner } from '../../components/common/Spinner';
 import { Question, StudentAnswer, testApi } from '../../services/api';
 import { useNavigationBlocker } from '../../hooks/useNavigationBlocker';
 import { QuestionNavigator } from '../../components/tests/QuestionNavigator';
+import { useTranslation } from 'react-i18next';
 
 const TestContainer = styled(Container)`
   padding: 2rem 1rem;
@@ -88,6 +89,7 @@ export default function TestPage() {
   const testId = Number(params.testId);
   const router = useRouter();
   const { isNameSet, studentName, completeTest, isLoading } = useUser();
+  const { t } = useTranslation();
   const [shouldRestart, setShouldRestart] = useState(false);
   const [testTitle, setTestTitle] = useState('');
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -419,7 +421,7 @@ export default function TestPage() {
     return (
       <TestContainer>
         <ErrorMessage>
-          Бұл тестте сұрақтар жоқ. Өтінеміз, басқа тесті таңдаңыз.
+          {t('test.no_questions')}
         </ErrorMessage>
       </TestContainer>
     );

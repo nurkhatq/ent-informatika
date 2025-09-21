@@ -4,6 +4,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Container } from '../components/common/Container';
 
 const AboutContainer = styled(Container)`
@@ -102,6 +103,8 @@ const TechItem = styled.div`
 `;
 
 export default function AboutPage() {
+  const { t } = useTranslation();
+  
   return (
     <AboutContainer>
       <motion.div
@@ -109,84 +112,70 @@ export default function AboutPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <AboutTitle>О системе</AboutTitle>
+        <AboutTitle>{t('about.title')}</AboutTitle>
         
         <AboutSection>
-          <SectionTitle>Цель проекта</SectionTitle>
+          <SectionTitle>{t('about.goal.title')}</SectionTitle>
           <SectionContent>
             <p>
-              ENT Trainer - это интерактивный тренажёр для подготовки к Единому Национальному Тестированию (ЕНТ) 
-              по информатике, предназначенный для учащихся старших классов.
+              {t('about.goal.description1')}
             </p>
             <p>
-              Система разработана с целью помочь ученикам эффективно подготовиться к ЕНТ, предоставляя 
-              доступ к учебным материалам, тестовым заданиям и возможность отслеживать свой прогресс.
+              {t('about.goal.description2')}
             </p>
           </SectionContent>
         </AboutSection>
         
         <AboutSection>
-          <SectionTitle>Возможности системы</SectionTitle>
+          <SectionTitle>{t('about.capabilities.title')}</SectionTitle>
           <SectionContent>
             <FeatureList>
               <li>
-                <strong>Оқу материалдары</strong> - доступ к структурированным материалам 
-                по 14 основным темам информатики
+                <strong>{t('features.materials.title')}</strong> - {t('about.capabilities.materials')}
               </li>
               <li>
-                <strong>Тест тапсырмалары</strong> - более 300 вопросов с автоматической проверкой, 
-                разделенные по темам
+                <strong>{t('features.tests.title')}</strong> - {t('about.capabilities.tests')}
               </li>
               <li>
-                <strong>Контекстік тесттер</strong> - задания для развития навыков анализа информации 
-                и работы с текстом
+                <strong>{t('features.context_tests.title')}</strong> - {t('about.capabilities.context_tests')}
               </li>
               <li>
-                <strong>Рейтинг</strong> - возможность отслеживать свои результаты и 
-                сравнивать их с результатами других учеников
+                <strong>{t('features.leaderboard.title')}</strong> - {t('about.capabilities.progress')}
               </li>
               <li>
-                <strong>Адаптивный дизайн</strong> - удобный интерфейс для работы на компьютере, 
-                планшете и смартфоне
+                <strong>{t('features.videos.title')}</strong> - {t('about.capabilities.videos')}
               </li>
             </FeatureList>
           </SectionContent>
         </AboutSection>
         
         <AboutSection>
-          <SectionTitle>Технический стек</SectionTitle>
+          <SectionTitle>{t('about.tech_stack.title')}</SectionTitle>
           <SectionContent>
+            <p>{t('about.tech_stack.description')}</p>
             <p>
-              Система разработана с использованием современных технологий, обеспечивающих быструю работу,
-              безопасность и удобство использования.
+              {t('tech_stack.description_extra')}
             </p>
             
             <TechStack>
               <TechItem>
-                <h3>Фронтенд</h3>
+                <h3>{t('tech_stack.frontend')}</h3>
                 <ul>
-                  <li>Next.js (React)</li>
-                  <li>TypeScript</li>
-                  <li>Styled Components</li>
-                  <li>Framer Motion</li>
+                  <li>{t('tech_stack.frontend_tech')}</li>
                 </ul>
               </TechItem>
               
               <TechItem>
-                <h3>Бэкенд</h3>
+                <h3>{t('tech_stack.backend')}</h3>
                 <ul>
-                  <li>Django</li>
-                  <li>Django REST Framework</li>
-                  <li>PostgreSQL</li>
-                  <li>Docker</li>
+                  <li>{t('tech_stack.backend_tech')}</li>
                 </ul>
               </TechItem>
               
               <TechItem>
-                <h3>Хранение данных</h3>
+                <h3>{t('tech_stack.storage')}</h3>
                 <ul>
-                  <li>AWS S3</li>
-                  <li>PostgreSQL</li>
+                  <li>{t('tech_stack.storage_tech')}</li>
                 </ul>
               </TechItem>
             </TechStack>
