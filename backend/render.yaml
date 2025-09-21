@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: ent-trainer-web
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: POSTGRES_DB
+        fromDatabase:
+          name: enttrainer-db
+          property: database
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: enttrainer-db
+          property: user
+      - key: POSTGRES_PASSWORD
+        fromDatabase:
+          name: enttrainer-db
+          property: password
+      - key: POSTGRES_HOST
+        fromDatabase:
+          name: enttrainer-db
+          property: host
+      - key: POSTGRES_PORT
+        fromDatabase:
+          name: enttrainer-db
+          property: port
+      - key: AWS_ACCESS_KEY_ID
+        sync: false  # добавь вручную через Dashboard
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false  # добавь вручную через Dashboard
+      - key: AWS_STORAGE_BUCKET_NAME
+        value: enttrainer
+      - key: AWS_S3_REGION_NAME
+        value: eu-north-1
+
+databases:
+  - name: enttrainer-db
+    plan: free

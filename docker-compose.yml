@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_DB=ent_db
+      - POSTGRES_USER=ent_user
+      - POSTGRES_PASSWORD=ent_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - ent-network
+
+  backend:
+    build: ./backend
+    command: /code/entrypoint.sh
+    volumes:
+      - ./backend:/code
+      - ./backend/json_output:/code/json_data
+      - ./backend/bolimder:/code/bolimder
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_DB=ent_db
+      - POSTGRES_USER=ent_user
+      - POSTGRES_PASSWORD=ent_password
+      - POSTGRES_HOST=db
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME:-enttrainer}
+      - AWS_S3_REGION_NAME=${AWS_S3_REGION_NAME:-eu-north-1}
+    depends_on:
+      - db
+    networks:
+      - ent-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api
+    depends_on:
+      - backend
+    networks:
+      - ent-network
+
+volumes:
+  postgres_data:
+
+networks:
+  ent-network:
+    driver: bridge
